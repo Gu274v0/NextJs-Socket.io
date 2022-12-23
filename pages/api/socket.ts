@@ -1,4 +1,4 @@
-import { Server } from 'Socket.IO'
+const { Server } = require('socket.io');
 
 const SocketHandler = (req: any, res: any) => {
     if (res.socket.server.io) {
@@ -8,8 +8,8 @@ const SocketHandler = (req: any, res: any) => {
         const io = new Server(res.socket.server);
         res.socket.server.io = io;
 
-        io.on('connection', socket => {
-            socket.on('input-change', msg => {
+        io.on('connection', (socket: any) => {
+            socket.on('input-change', (msg: string) => {
                 socket.broadcast.emit('update-input', msg)
             })
         });
