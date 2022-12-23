@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import io from 'Socket.IO-client'
 let socket: any;
-
+const io = require('Socket.IO-client');
 
 const Home = () => {
     const [input, setInput] = useState('');
