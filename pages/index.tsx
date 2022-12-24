@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-let socket: any;
-const io = require('Socket.IO-client');
+import io from 'socket.io-client';
 
 const Home = () => {
     const [input, setInput] = useState('');
@@ -8,20 +7,18 @@ const Home = () => {
 
     const socketInitializer = async () => {
         await fetch('/api/socket');
-        socket = io();
-
-        socket.on('connect', () => {
+        io().on('connect', () => {
             console.log('connected');
         });
 
-        socket.on('update-input', (msg: string) => {
+        io().on('update-input', (msg: string) => {
             setInput(msg);
         });
     }
 
     const onChangeHandler = (e: any) => {
         setInput(e.target.value);
-        socket.emit('input-change', e.target.value);
+        io().emit('input-change', e.target.value);
     }
 
     return (
